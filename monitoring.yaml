@@ -84,7 +84,7 @@ spec:
   - name: example
     rules:
     - alert: VersionAlert
-      expr: version{job="grafana-demo"} == 0
+      expr: b1_cpu_usage > 50
 
 
 ---
@@ -120,3 +120,17 @@ spec:
     matchLabels:
       app: grafana-demo2
 
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: example-app
+  labels:
+    team: frontend
+spec:
+  selector:
+    matchLabels:
+      app: example-app
+  podMetricsEndpoints:
+  - port: web
+---
